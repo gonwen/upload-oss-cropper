@@ -1,0 +1,15 @@
+node_modules/
+template/
+dist/
+test/
+.idea/
+package-lock.json
+webpack.config.js
+index.html
+.babelrc
+.editorconfig
+.eslintignore
+.gitignore
+.eslintrc.js
+src/main.js
+src/App.vue
