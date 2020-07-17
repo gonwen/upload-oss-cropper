@@ -10,18 +10,17 @@
             ossValue="marketFileResources"
             ossAccept="image/jpg,image/gif,image/png,image/jpeg,image/bmp"
             :ossTarget="`app/file`"
-            @handleChangeFile="handleChangeFile"
             :ossConfig="ossConfig"
             :baseFileUrl="serFileUrl"
             isCropper
             :cropperWidth="500"
             :imgRatio="16/9"
+            @handleChangeFile="handleChangeFile"
         ></upload-oss-cropper>
-        <img v-for="(item, index) in fileList" :key="index"  :src="serFileUrl + item.fileShowUrl" :title="item.fileName"/>
+        <img v-for="(item, index) in fileList" :key="index"  :src="serFileUrl + item.fileShowUrl" :title="item.fileName" alt=""/>
     </div>
 </template>
 <script>
-// import uploadOssCropper from '../lib/index'
 import uploadOssCropper from './fgPlugin/fgUpload'
 export default {
     name: 'app',

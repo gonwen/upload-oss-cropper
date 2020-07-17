@@ -1,15 +1,17 @@
 <template>
-    <div class="fg-cropper">
+    <div v-loading="loading" class="fg-cropper">
         <div class="crp-box">
             <div class="crp-nav">
                 <el-button
                     v-for="(item, index) in btnGroup"
                     :key="index"
+                    :disabled="loading"
                     :icon="item.icon"
                     type="text"
-                    @click="handleClick(`${item.type}`)"
                     :ref="item.ref"
-                    :title="item.tit">
+                    :title="item.tit"
+                    @click="handleClick(`${item.type}`)"
+                >
                     <template slot v-if="!item.icon">
                         {{item.icon ? '' : item.name}}
                     </template>
@@ -54,6 +56,16 @@ export default {
                 return {}
             },
             type: Object
+        },
+        maxWidthCanvas: {
+            // Infinity  (无穷大)
+            default: 2000,
+            type: Number
+        },
+        maxHeightCanvas: {
+            // Infinity  (无穷大)
+            default: 2000,
+            type: Number
         }
     },
     components: {
@@ -122,7 +134,8 @@ export default {
                 maxHeight: '600px',
                 minHeight: '300px'
             },
-            newImgFiles: {}
+            newImgFiles: {},
+            loading: false
         }
     },
     created () {
@@ -152,12 +165,14 @@ export default {
             }
         },
         getNewImg () {
-            this.$refs.cropper.getCroppedCanvas().toBlob(blob => {
+            this.loading = true
+            this.$refs.cropper.getCroppedCanvas({maxWidth: this.maxWidthCanvas, maxHeight: this.maxHeightCanvas}).toBlob(blob => {
                 let file = this.originImgFile.file
                 blob.name = file.name
                 blob.uid = file.uid
                 blob.lastModified = file.lastModified
                 this.newImgFiles.file = blob
+                this.loading = false
                 this.$emit('getNewImgCallback', this.newImgFiles)
             })
         },

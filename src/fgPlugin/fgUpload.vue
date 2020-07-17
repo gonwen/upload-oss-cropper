@@ -55,7 +55,16 @@
             :close-on-click-modal="false"
             :close-on-press-escape="false"
             :show-close="false">
-            <vue-cropper :ratio="imgRatio" :maxWidth="cropperWidth" @closeCallback="closeCallback" @getNewImgCallback="getNewImgCallback" v-if="isShowCropper" :originImgFile="originImgFile"></vue-cropper>
+            <vue-cropper
+                v-if="isShowCropper"
+                :ratio="imgRatio"
+                :maxWidth="cropperWidth"
+                :originImgFile="originImgFile"
+                :maxWidthCanvas="maxWidthCanvas"
+                :maxHeightCanvas="maxHeightCanvas"
+                @closeCallback="closeCallback"
+                @getNewImgCallback="getNewImgCallback"
+            ></vue-cropper>
         </el-dialog>
     </div>
 </template>
@@ -172,6 +181,16 @@ export default {
             default: 800,
             type: Number
         },
+        'maxWidthCanvas': {
+            // Infinity  (无穷大)
+            default: 2000,
+            type: Number
+        },
+        'maxHeightCanvas': {
+            // Infinity  (无穷大)
+            default: 2000,
+            type: Number
+        },
         ossConfig: {
             type: Object
         },
@@ -222,19 +241,6 @@ export default {
             } else {
                 return this.vaditeFileSize(file) && this.vaditeFileFormater(file)
             }
-            // if (flag) return flag
-            // if (this.isCropper) {
-            //     this.originImgFile = {file: file}
-            //     this.isShowCropper = true
-            //     return false
-            // } else {
-            //     if (file.size > this.surplus) {
-            //         this.$emit('undercapacity', true)
-            //         return false
-            //     } else {
-            //         return this.vaditeFileSize(file) && this.vaditeFileFormater(file)
-            //     }
-            // }
         },
         httpRequest (param) {
             if (this.isCropper) {
