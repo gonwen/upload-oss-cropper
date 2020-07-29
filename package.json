@@ -1,12 +1,16 @@
 {
     "name": "upload-oss-cropper",
     "description": "this is upload file about oss and this is cropper",
-    "version": "1.0.13",
+    "version": "1.0.14",
     "author": "gongwen <gongwen_1@163.com>",
     "main": "lib/index.js",
     "scripts": {
         "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
         "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/gonwen/upload-oss-cropper"
     },
     "dependencies": {
         "ali-oss": "^6.1.1",
